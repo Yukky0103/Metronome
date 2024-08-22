@@ -10,5 +10,4 @@ public class Main {
 		metronome.setFrontScreenAndFocus(ScreenMode.MAIN); //最初の画面を表示
 		metronome.setVisible(true); //ウインドウを可視化
     }
-
 }
