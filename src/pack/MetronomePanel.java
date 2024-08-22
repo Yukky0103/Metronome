@@ -40,8 +40,6 @@ public class MetronomePanel extends JPanel {
 	
 	ImageIcon iconssbstart = new ImageIcon(getClass().getClassLoader().getResource("再生.png"));
 	ImageIcon iconssbstop = new ImageIcon(getClass().getClassLoader().getResource("停止.png"));
-	//ImageIcon iconinc = new ImageIcon(getClass().getClassLoader().getResource("名前.png")).getImage();
-	//ImageIcon icondec = new ImageIcon(getClass().getClassLoader().getResource("名前.png")).getImage();
 	
 	File soundFile = new File("sound/clicksound.wav");
 	//コンポーネント
@@ -76,14 +74,12 @@ public class MetronomePanel extends JPanel {
 		startstopButton.setBounds(x_pos(Metronome.WIDTH, iconssbstart.getIconWidth()), 350, iconssbstart.getIconWidth(), iconssbstart.getIconHeight());
 		
 		increaseTempoButton = new JButton();
-		//increaseTempoButton.setIcon(iconinc);
 		increaseTempoButton.setBackground(Color.green);
 		increaseTempoButton.setText("+1");
 		increaseTempoButton.setOpaque(true);
 		increaseTempoButton.setBounds(x_pos(Metronome.WIDTH, 50)-50, 550, 50, 50);
 		
 		decreaseTempoButton = new JButton();
-		//decreaseTempoButton.setIcon(icondec);
 		decreaseTempoButton.setBackground(Color.yellow);
 		decreaseTempoButton.setText("-1");
 		decreaseTempoButton.setOpaque(true);
