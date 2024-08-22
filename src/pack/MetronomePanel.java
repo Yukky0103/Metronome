@@ -34,6 +34,8 @@ public class MetronomePanel extends JPanel {
 	JSlider tempoSlider;
 	JButton increaseTempoButton;
 	JButton decreaseTempoButton;
+	JButton increase5TempoButton;
+	JButton decrease5TempoButton;
 	boolean isRunning;
 	int Tempo = 60;
 	Timer timer;
@@ -49,6 +51,7 @@ public class MetronomePanel extends JPanel {
 	MetronomePanel(){
 		this.setLayout(null); //レイアウトの設定
 		this.setBackground(backgroundColor); //背景の色
+		playClickSounds();  //キャッシュが問題の可能性 別のデータに変更した際の影響は不明
 	}
 	
 	public void prepareComponents() {
@@ -57,6 +60,8 @@ public class MetronomePanel extends JPanel {
 		tempoSlider = new JSlider();
 		increaseTempoButton = new JButton();
 		decreaseTempoButton = new JButton();
+		increase5TempoButton = new JButton();
+		decrease5TempoButton = new JButton();
 		
 		tempolabel.setHorizontalAlignment(SwingConstants.CENTER);
 		tempolabel.setVerticalAlignment(SwingConstants.CENTER);
@@ -85,6 +90,18 @@ public class MetronomePanel extends JPanel {
 		decreaseTempoButton.setOpaque(true);
 		decreaseTempoButton.setBounds(x_pos(Metronome.WIDTH, 50)+50, 550, 50, 50);
 		
+		increase5TempoButton = new JButton();
+		increase5TempoButton.setBackground(Color.green);
+		increase5TempoButton.setText("+5");
+		increase5TempoButton.setOpaque(true);
+		increase5TempoButton.setBounds(x_pos(Metronome.WIDTH, 50)-100, 550, 50, 50);
+		
+		decrease5TempoButton = new JButton();
+		decrease5TempoButton.setBackground(Color.yellow);
+		decrease5TempoButton.setText("-5");
+		decrease5TempoButton.setOpaque(true);
+		decrease5TempoButton.setBounds(x_pos(Metronome.WIDTH, 50)+100, 550, 50, 50);
+		
 		tempoSlider = new JSlider();
 		tempoSlider.setMaximum(240);
 		tempoSlider.setMinimum(40);
@@ -97,13 +114,17 @@ public class MetronomePanel extends JPanel {
 		this.add(increaseTempoButton);
 		this.add(decreaseTempoButton);
 		this.add(tempoSlider);
+		this.add(increase5TempoButton);
+		this.add(decrease5TempoButton);
 		
 		startstopButton.addActionListener(new StartStopButtonListener());
 		increaseTempoButton.addActionListener(new IncreaseTempoButtonListener());
 		decreaseTempoButton.addActionListener(new DecreaseTempoButtonListener());
 		tempoSlider.addChangeListener(new TempoSliderListener());
+		increase5TempoButton.addActionListener(new Increase5TempoButtonListener());
+		decrease5TempoButton.addActionListener(new Decrease5TempoButtonListener());
 		
-		timer = new Timer(60000 / Tempo, new ActionListener() {
+		timer = new Timer(t(Tempo), new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					playClickSounds();
 				}
@@ -114,7 +135,7 @@ public class MetronomePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			isRunning = !isRunning;
 			if(isRunning) {
-				timer.setDelay(60000 / Tempo);
+				timer.setDelay(t(Tempo));
 				timer.start();
 				startstopButton.setIcon(iconssbstop);
 				startstopButton.setBounds(x_pos(Metronome.WIDTH, iconssbstart.getIconWidth()), 350, iconssbstop.getIconWidth(), iconssbstop.getIconHeight());
@@ -134,7 +155,7 @@ public class MetronomePanel extends JPanel {
 				Tempo++;
 				tempoSlider.setValue(Tempo);
 				tempolabel.setText("Tempo:" + Tempo);
-				timer.setDelay(60000 / Tempo);
+				timer.setDelay(t(Tempo));
 				//メトロノームテンポ変更
 			}
 		}
@@ -146,7 +167,7 @@ public class MetronomePanel extends JPanel {
 				Tempo--;
 				tempoSlider.setValue(Tempo);
 				tempolabel.setText("Tempo:" + Tempo);
-				timer.setDelay(60000 / Tempo);
+				timer.setDelay(t(Tempo));
 				//メトロノームテンポ変更
 			}
 		}
@@ -156,10 +177,34 @@ public class MetronomePanel extends JPanel {
 		public void stateChanged(ChangeEvent e) {
 			Tempo = tempoSlider.getValue();
 			tempolabel.setText("Tempo:" + Tempo);
-			timer.setDelay(60000 / Tempo);
+			timer.setDelay(t(Tempo));
 		}
 	}
 	
+	private class Increase5TempoButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			if(Tempo < 236) {
+				Tempo = Tempo + 5;
+			}else if((Tempo > 235) & (Tempo <= 240)){
+				Tempo = 240;
+			}
+			tempoSlider.setValue(Tempo);
+			tempolabel.setText("Tempo:" + Tempo);
+			timer.setDelay(t(Tempo));
+		}
+	}
+	private class Decrease5TempoButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			if(Tempo > 44) {
+				Tempo = Tempo - 5;
+			}else if((Tempo < 45) & (Tempo >= 40)){
+				Tempo = 40;
+			}
+			tempoSlider.setValue(Tempo);
+			tempolabel.setText("Tempo:" + Tempo);
+			timer.setDelay(t(Tempo));
+		}
+	}
 	private void playClickSounds() {
 		try {
 			AudioInputStream audioin = AudioSystem.getAudioInputStream(soundFile);
@@ -173,5 +218,8 @@ public class MetronomePanel extends JPanel {
 	
 	private static int x_pos(int windowwidth, int componentswidth) {
 		return ((windowwidth - componentswidth) / 2) ;
+	}
+	private static int t(int tempo) {
+		return 60000 / tempo;
 	}
 }
