@@ -36,6 +36,7 @@ public class MetronomePanel extends JPanel {
 	JButton decreaseTempoButton;
 	JButton increase5TempoButton;
 	JButton decrease5TempoButton;
+	JButton changeButton;
 	boolean isRunning;
 	int Tempo = 60;
 	Timer timer;
@@ -62,6 +63,7 @@ public class MetronomePanel extends JPanel {
 		decreaseTempoButton = new JButton();
 		increase5TempoButton = new JButton();
 		decrease5TempoButton = new JButton();
+		changeButton = new JButton();
 		
 		tempolabel.setHorizontalAlignment(SwingConstants.CENTER);
 		tempolabel.setVerticalAlignment(SwingConstants.CENTER);
@@ -109,6 +111,12 @@ public class MetronomePanel extends JPanel {
 		tempoSlider.setOpaque(true);
 		tempoSlider.setBounds(x_pos(Metronome.WIDTH, 600), 500, 600, 50);
 		
+		changeButton = new JButton();
+		changeButton.setBackground(Color.green);
+		changeButton.setText("変更");
+		changeButton.setOpaque(true);
+		changeButton.setBounds(x_pos(Metronome.WIDTH, 50)-250, 30, 50, 50);
+		
 		this.add(tempolabel);
 		this.add(startstopButton);
 		this.add(increaseTempoButton);
@@ -116,6 +124,7 @@ public class MetronomePanel extends JPanel {
 		this.add(tempoSlider);
 		this.add(increase5TempoButton);
 		this.add(decrease5TempoButton);
+		this.add(changeButton);
 		
 		startstopButton.addActionListener(new StartStopButtonListener());
 		increaseTempoButton.addActionListener(new IncreaseTempoButtonListener());
@@ -123,6 +132,7 @@ public class MetronomePanel extends JPanel {
 		tempoSlider.addChangeListener(new TempoSliderListener());
 		increase5TempoButton.addActionListener(new Increase5TempoButtonListener());
 		decrease5TempoButton.addActionListener(new Decrease5TempoButtonListener());
+		changeButton.addActionListener(new ChangeButtonListener());
 		
 		timer = new Timer(t(Tempo), new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -221,5 +231,11 @@ public class MetronomePanel extends JPanel {
 	}
 	private static int t(int tempo) {
 		return 60000 / tempo;
+	}
+	
+	private class ChangeButtonListener implements ActionListener{
+		public void  actionPerformed(ActionEvent e) {
+			Main.metronome.setFrontScreenAndFocus(ScreenMode.FRFI);
+		}
 	}
 }

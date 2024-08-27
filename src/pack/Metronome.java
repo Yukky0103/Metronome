@@ -16,6 +16,7 @@ public class Metronome extends JFrame{
 	CardLayout layout  =new CardLayout();
 	
 	MetronomePanel metronomePanel;
+	FilePanel filePanel;
 	
 	Metronome(){
 		//タイトルとアイコン
@@ -36,12 +37,15 @@ public class Metronome extends JFrame{
 	public void preparePanels() {
 		//パネルの準備
 		metronomePanel = new MetronomePanel();
+		filePanel = new FilePanel();
 		this.add(metronomePanel, "メトロノーム画面");
+		this.add(filePanel, "ファイル画面");
 		this.pack();
 	}
 	
 	public void prepareComponents() {
 		metronomePanel.prepareComponents();
+		filePanel.prepareComponents();
 	}
 	
 	public void setFrontScreenAndFocus(ScreenMode s) {
@@ -51,6 +55,10 @@ public class Metronome extends JFrame{
 			layout.show(this.getContentPane(), "メトロノーム画面");
 			metronomePanel.requestFocus();
 			break;
+		case FRFI:
+			layout.show(this.getContentPane(), "ファイル画面");
+			filePanel.requestFocus();
+			
 		}
 	}
 }
