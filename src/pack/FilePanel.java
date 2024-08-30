@@ -22,8 +22,8 @@ public class FilePanel extends JPanel{
 	JButton FileInput;
 	
 	int UnitNumber = 0;
-	int BeatNumber = 0;
-	int [] TempoList;
+	int[] BeatList;
+	int[] TempoList;
 	
 	FilePanel(){
 		this.setLayout(null);
@@ -61,20 +61,32 @@ public class FilePanel extends JPanel{
 			
 			//ファイル内容読み込み
 			try(BufferedReader br = new BufferedReader(new FileReader(fullPath))){
+				int linenum = 1;
 				//小節数と拍子の数値
 				UnitNumber = Integer.parseInt(br.readLine());
-				BeatNumber  =Integer.parseInt(br.readLine());
-				
+				linenum++;
 				//テンポ羅列の処理
 				String line;
 				while((line = br.readLine()) != null) {
 					//カンマ区切りの文字列を配列に分割
-					String[] numberStrings = line.split(",");
-					TempoList  =new int[numberStrings.length];
-					System.out.println(TempoList.length);
-					//文字列を数値に変換して格納
-					for(int i=0; i < TempoList.length; i++) {
-						TempoList[i] = Integer.parseInt(numberStrings[i].trim());
+					//拍子の配列に格納
+					if(linenum == 2) {
+						String[] beatStrings = line.split(",");
+						BeatList = new int[beatStrings.length];
+						for(int j = 0; j < BeatList.length; j++) {
+							BeatList[j] = Integer.parseInt(beatStrings[j].trim());
+						}
+					}
+					linenum++;
+					//テンポの配列に格納
+					if(linenum == 3) {
+						String[] numberStrings = line.split(",");
+						TempoList = new int[numberStrings.length];
+						System.out.println(TempoList.length);
+						//文字列を数値に変換して格納
+						for(int i=0; i < TempoList.length; i++) {
+							TempoList[i] = Integer.parseInt(numberStrings[i].trim());
+						}
 					}
 				}
 			}catch(IOException | NumberFormatException ioe) {
