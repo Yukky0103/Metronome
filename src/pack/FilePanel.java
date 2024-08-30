@@ -69,7 +69,7 @@ public class FilePanel extends JPanel{
 				String line;
 				while((line = br.readLine()) != null) {
 					//カンマ区切りの文字列を配列に分割
-					//拍子の配列に格納
+					//拍子を配列に格納
 					if(linenum == 2) {
 						String[] beatStrings = line.split(",");
 						BeatList = new int[beatStrings.length];
@@ -78,7 +78,7 @@ public class FilePanel extends JPanel{
 						}
 					}
 					linenum++;
-					//テンポの配列に格納
+					//テンポを配列に格納
 					if(linenum == 3) {
 						String[] numberStrings = line.split(",");
 						TempoList = new int[numberStrings.length];
