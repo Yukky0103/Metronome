@@ -52,7 +52,7 @@ public class MetronomePanel extends JPanel {
 	MetronomePanel(){
 		this.setLayout(null); //レイアウトの設定
 		this.setBackground(backgroundColor); //背景の色
-		playClickSounds();  //キャッシュが問題の可能性 別のデータに変更した際の影響は不明
+		playClickSounds(soundFile);  //キャッシュが問題の可能性 別のデータに変更した際の影響は不明
 	}
 	
 	public void prepareComponents() {
@@ -136,7 +136,7 @@ public class MetronomePanel extends JPanel {
 		
 		timer = new Timer(t(Tempo), new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					playClickSounds();
+					playClickSounds(soundFile);
 				}
 		});
 	}
@@ -215,9 +215,9 @@ public class MetronomePanel extends JPanel {
 			timer.setDelay(t(Tempo));
 		}
 	}
-	private void playClickSounds() {
+	private void playClickSounds(File s) {
 		try {
-			AudioInputStream audioin = AudioSystem.getAudioInputStream(soundFile);
+			AudioInputStream audioin = AudioSystem.getAudioInputStream(s);
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioin);
 			clip.start();

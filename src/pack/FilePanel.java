@@ -20,6 +20,7 @@ public class FilePanel extends JPanel{
 	File InputFile;
 	
 	JButton FileInput;
+	JButton changeButton;
 	
 	int UnitNumber = 0;
 	int[] BeatList;
@@ -32,15 +33,23 @@ public class FilePanel extends JPanel{
 	
 	public void prepareComponents() {
 		FileInput = new JButton();
+		changeButton = new JButton();
 		
 		FileInput.setText("ファイルを選択");
 		FileInput.setBackground(Color.green);
 		FileInput.setOpaque(true);
-		FileInput.setBounds(x_pos(Metronome.WIDTH, 50), 400, 400, 50);
+		FileInput.setBounds(x_pos(Metronome.WIDTH, 400), 400, 400, 50);
+		
+		changeButton.setText("変更");
+		changeButton.setBackground(Color.yellow);
+		changeButton.setOpaque(true);
+		changeButton.setBounds(x_pos(Metronome.WIDTH, 50)-350, 50, 50, 50);
 		
 		this.add(FileInput);
+		this.add(changeButton);
 		
 		FileInput.addActionListener(new FileInputListener());
+		changeButton.addActionListener(new ChangeButtonListener());
 	}
 	
 	private class FileInputListener implements ActionListener{
@@ -92,6 +101,13 @@ public class FilePanel extends JPanel{
 			}catch(IOException | NumberFormatException ioe) {
 				ioe.printStackTrace();
 			}
+		}
+	}
+	
+	public class ChangeButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Main.metronome.setFrontScreenAndFocus(ScreenMode.MAIN);
 		}
 	}
 	
