@@ -115,7 +115,7 @@ public class MetronomePanel extends JPanel {
 		changeButton.setBackground(Color.green);
 		changeButton.setText("変更");
 		changeButton.setOpaque(true);
-		changeButton.setBounds(x_pos(Metronome.WIDTH, 50)-250, 30, 50, 50);
+		changeButton.setBounds(x_pos(Metronome.WIDTH, 50)-350, 50, 50, 50);
 		
 		this.add(tempolabel);
 		this.add(startstopButton);
