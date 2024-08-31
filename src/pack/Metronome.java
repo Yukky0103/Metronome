@@ -17,6 +17,7 @@ public class Metronome extends JFrame{
 	
 	MetronomePanel metronomePanel;
 	FilePanel filePanel;
+	static PlayPanel playPanel;
 	
 	Metronome(){
 		//タイトルとアイコン
@@ -38,8 +39,10 @@ public class Metronome extends JFrame{
 		//パネルの準備
 		metronomePanel = new MetronomePanel();
 		filePanel = new FilePanel();
+		playPanel = new PlayPanel();
 		this.add(metronomePanel, "メトロノーム画面");
 		this.add(filePanel, "ファイル画面");
+		this.add(playPanel, "再生画面");
 		this.pack();
 	}
 	
@@ -58,8 +61,13 @@ public class Metronome extends JFrame{
 		case FRFI:
 			layout.show(this.getContentPane(), "ファイル画面");
 			filePanel.requestFocus();
-			
+			break;
+		case PLAY:
+			layout.show(this.getContentPane(), "再生画面");
+			playPanel.requestFocus();
+			break;
 		}
+		
 	}
 }
 

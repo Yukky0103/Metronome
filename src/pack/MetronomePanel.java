@@ -73,20 +73,17 @@ public class MetronomePanel extends JPanel {
 		tempolabel.setBounds(x_pos(Metronome.WIDTH, 150), 150, 150, 100);
 		tempolabel.setBorder(border);
 		
-		startstopButton = new JButton();
 		startstopButton.setIcon(iconssbstart);
 		startstopButton.setContentAreaFilled(false); // ボタンのコンテンツ領域の塗りつぶしを無効にする
 	    startstopButton.setBorderPainted(false); // ボタンの境界線を描画しない
 	    startstopButton.setFocusPainted(false); // フォーカスが当たったときの枠線を描画しない
 		startstopButton.setBounds(x_pos(Metronome.WIDTH, iconssbstart.getIconWidth()), 350, iconssbstart.getIconWidth(), iconssbstart.getIconHeight());
 		
-		increaseTempoButton = new JButton();
 		increaseTempoButton.setBackground(Color.green);
 		increaseTempoButton.setText("+1");
 		increaseTempoButton.setOpaque(true);
 		increaseTempoButton.setBounds(x_pos(Metronome.WIDTH, 50)-50, 550, 50, 50);
 		
-		decreaseTempoButton = new JButton();
 		decreaseTempoButton.setBackground(Color.yellow);
 		decreaseTempoButton.setText("-1");
 		decreaseTempoButton.setOpaque(true);
@@ -98,20 +95,17 @@ public class MetronomePanel extends JPanel {
 		increase5TempoButton.setOpaque(true);
 		increase5TempoButton.setBounds(x_pos(Metronome.WIDTH, 50)-100, 550, 50, 50);
 		
-		decrease5TempoButton = new JButton();
 		decrease5TempoButton.setBackground(Color.yellow);
 		decrease5TempoButton.setText("-5");
 		decrease5TempoButton.setOpaque(true);
 		decrease5TempoButton.setBounds(x_pos(Metronome.WIDTH, 50)+100, 550, 50, 50);
 		
-		tempoSlider = new JSlider();
 		tempoSlider.setMaximum(240);
 		tempoSlider.setMinimum(40);
 		tempoSlider.setBackground(Color.cyan);
 		tempoSlider.setOpaque(true);
 		tempoSlider.setBounds(x_pos(Metronome.WIDTH, 600), 500, 600, 50);
 		
-		changeButton = new JButton();
 		changeButton.setBackground(Color.green);
 		changeButton.setText("変更");
 		changeButton.setOpaque(true);

@@ -6,7 +6,6 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -17,14 +16,11 @@ import javax.swing.JPanel;
 public class FilePanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
-	File InputFile;
-	
 	JButton FileInput;
 	JButton changeButton;
 	
-	int UnitNumber = 0;
-	int[] BeatList;
-	int[] TempoList;
+	static int[] BeatList;
+	static int[] TempoList;
 	
 	FilePanel(){
 		this.setLayout(null);
@@ -66,40 +62,39 @@ public class FilePanel extends JPanel{
 			if(selectedFile != null) {
 				String directory = fileDialog.getDirectory();
 				fullPath = directory + selectedFile;
-			}
-			
-			//ファイル内容読み込み
-			try(BufferedReader br = new BufferedReader(new FileReader(fullPath))){
-				int linenum = 1;
-				//小節数と拍子の数値
-				UnitNumber = Integer.parseInt(br.readLine());
-				linenum++;
-				//テンポ羅列の処理
-				String line;
-				while((line = br.readLine()) != null) {
-					//カンマ区切りの文字列を配列に分割
-					//拍子を配列に格納
-					if(linenum == 2) {
-						String[] beatStrings = line.split(",");
-						BeatList = new int[beatStrings.length];
-						for(int j = 0; j < BeatList.length; j++) {
-							BeatList[j] = Integer.parseInt(beatStrings[j].trim());
+				
+				//ファイル内容読み込み
+				try(BufferedReader br = new BufferedReader(new FileReader(fullPath))){
+					int linenum = 1;;
+					//テンポ羅列の処理
+					String line = br.readLine();
+					while(line != null) {
+						//カンマ区切りの文字列を配列に分割
+						//拍子を配列に格納
+						if(linenum == 1) {
+							String[] beatStrings = line.split(",");
+							BeatList = new int[beatStrings.length];
+							for(int j = 0; j < BeatList.length; j++) {
+								BeatList[j] = Integer.parseInt(beatStrings[j].trim());
+							}
+						}
+						line = br.readLine();
+						linenum++;
+						//テンポを配列に格納
+						if(linenum == 2) {
+							String[] numberStrings = line.split(",");
+							TempoList = new int[numberStrings.length];
+							//文字列を数値に変換して格納
+							for(int i=0; i < TempoList.length; i++) {
+								TempoList[i] = Integer.parseInt(numberStrings[i].trim());
+							}
 						}
 					}
-					linenum++;
-					//テンポを配列に格納
-					if(linenum == 3) {
-						String[] numberStrings = line.split(",");
-						TempoList = new int[numberStrings.length];
-						System.out.println(TempoList.length);
-						//文字列を数値に変換して格納
-						for(int i=0; i < TempoList.length; i++) {
-							TempoList[i] = Integer.parseInt(numberStrings[i].trim());
-						}
-					}
+					Metronome.playPanel.prepareComponents();
+					Main.metronome.setFrontScreenAndFocus(ScreenMode.PLAY);
+				}catch(IOException | NumberFormatException ioe) {
+					ioe.printStackTrace();
 				}
-			}catch(IOException | NumberFormatException ioe) {
-				ioe.printStackTrace();
 			}
 		}
 	}

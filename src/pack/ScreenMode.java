@@ -5,4 +5,5 @@ public enum ScreenMode {
 	//画面モード
 	MAIN,
 	FRFI,
+	PLAY,
 }
