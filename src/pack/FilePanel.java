@@ -20,7 +20,7 @@ public class FilePanel extends JPanel{
 	JButton changeButton;
 	
 	static int[] BeatList;
-	static int[] TempoList;
+	static float[] TempoList;
 	
 	FilePanel(){
 		this.setLayout(null);
@@ -83,10 +83,10 @@ public class FilePanel extends JPanel{
 						//テンポを配列に格納
 						if(linenum == 2) {
 							String[] numberStrings = line.split(",");
-							TempoList = new int[numberStrings.length];
+							TempoList = new float[numberStrings.length];
 							//文字列を数値に変換して格納
 							for(int i=0; i < TempoList.length; i++) {
-								TempoList[i] = Integer.parseInt(numberStrings[i].trim());
+								TempoList[i] = Float.parseFloat(numberStrings[i].trim());
 							}
 						}
 					}

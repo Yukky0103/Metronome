@@ -32,7 +32,7 @@ public class PlayPanel extends JPanel {
 	int currentIndex = 0;
 	
 	//動的な配列領域の確保
-	static List<Integer> FullTempoList = new ArrayList<>();
+	static List<Float> FullTempoList = new ArrayList<>();
 	
 	ImageIcon iconstart = new ImageIcon(getClass().getClassLoader().getResource("再生.png"));
 	ImageIcon iconstop = new ImageIcon(getClass().getClassLoader().getResource("停止.png"));
@@ -50,7 +50,7 @@ public class PlayPanel extends JPanel {
 		NowTempo = new JLabel();
 		StartStopButton = new JButton();
 		
-		NowTempo.setText("Tempo:" + FilePanel.TempoList[0]);
+		NowTempo.setText("Tempo:" + FilePanel.TempoList[0]); 
 		NowTempo.setBounds(x_pos(Metronome.WIDTH, 150), 150, 150, 150);
 		NowTempo.setBorder(border);
 		
@@ -66,7 +66,7 @@ public class PlayPanel extends JPanel {
 		StartStopButton.addActionListener(new PlayStartStopButtonListener());
 		
 		//タイマーの初期化
-		timer = new Timer(t(FullTempoList.get(currentIndex)), new ActionListener() {
+		timer = new Timer((int)t(FullTempoList.get(currentIndex)), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if(isRunning) {
@@ -84,7 +84,7 @@ public class PlayPanel extends JPanel {
 							StartStopButton.setBounds(x_pos(Metronome.WIDTH, iconstart.getIconWidth()), 350, iconstart.getIconWidth(), iconstart.getIconHeight());
 						}
 						//タイマーのディレイを更新
-						timer.setDelay(t(FullTempoList.get(currentIndex)));
+						timer.setDelay((int)t(FullTempoList.get(currentIndex)));
 					}
 				}
 		});
@@ -128,7 +128,7 @@ public class PlayPanel extends JPanel {
 		return ((Mw - Cw) / 2);
 	}
 	
-	private int t(int tempo) {
+	private float t(float tempo) {
 		return 60000 / tempo;
 	}
 }
