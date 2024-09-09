@@ -49,6 +49,7 @@ public class Metronome extends JFrame{
 	public void prepareComponents() {
 		metronomePanel.prepareComponents();
 		filePanel.prepareComponents();
+		playPanel.prepareComponents();
 	}
 	
 	public void setFrontScreenAndFocus(ScreenMode s) {

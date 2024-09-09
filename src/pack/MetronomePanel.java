@@ -12,7 +12,6 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,10 +40,6 @@ public class MetronomePanel extends JPanel {
 	int Tempo = 60;
 	Timer timer;
 	
-	ImageIcon iconssbstart = new ImageIcon(getClass().getClassLoader().getResource("再生.png"));
-	ImageIcon iconssbstop = new ImageIcon(getClass().getClassLoader().getResource("停止.png"));
-	
-	File soundFile = new File("sound/clicksound.wav");
 	//コンポーネント
 	Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 	//リスナー
@@ -52,7 +47,7 @@ public class MetronomePanel extends JPanel {
 	MetronomePanel(){
 		this.setLayout(null); //レイアウトの設定
 		this.setBackground(backgroundColor); //背景の色
-		playClickSounds(soundFile);  //キャッシュが問題の可能性 別のデータに変更した際の影響は不明
+		playClickSounds(ResourceManager.SilentSoundFile);  //キャッシュが問題の可能性 別のデータに変更した際の影響は不明
 	}
 	
 	public void prepareComponents() {
@@ -73,11 +68,11 @@ public class MetronomePanel extends JPanel {
 		tempolabel.setBounds(x_pos(Metronome.WIDTH, 150), 150, 150, 100);
 		tempolabel.setBorder(border);
 		
-		startstopButton.setIcon(iconssbstart);
+		startstopButton.setIcon(ResourceManager.iconstart);
 		startstopButton.setContentAreaFilled(false); // ボタンのコンテンツ領域の塗りつぶしを無効にする
 	    startstopButton.setBorderPainted(false); // ボタンの境界線を描画しない
 	    startstopButton.setFocusPainted(false); // フォーカスが当たったときの枠線を描画しない
-		startstopButton.setBounds(x_pos(Metronome.WIDTH, iconssbstart.getIconWidth()), 350, iconssbstart.getIconWidth(), iconssbstart.getIconHeight());
+		startstopButton.setBounds(x_pos(Metronome.WIDTH, ResourceManager.iconstart.getIconWidth()), 350, ResourceManager.iconstart.getIconWidth(), ResourceManager.iconstart.getIconHeight());
 		
 		increaseTempoButton.setBackground(Color.green);
 		increaseTempoButton.setText("+1");
@@ -130,7 +125,7 @@ public class MetronomePanel extends JPanel {
 		
 		timer = new Timer(t(Tempo), new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					playClickSounds(soundFile);
+					playClickSounds(ResourceManager.NormalSoundFile);
 				}
 		});
 	}
@@ -141,13 +136,13 @@ public class MetronomePanel extends JPanel {
 			if(isRunning) {
 				timer.setDelay(t(Tempo));
 				timer.start();
-				startstopButton.setIcon(iconssbstop);
-				startstopButton.setBounds(x_pos(Metronome.WIDTH, iconssbstart.getIconWidth()), 350, iconssbstop.getIconWidth(), iconssbstop.getIconHeight());
+				startstopButton.setIcon(ResourceManager.iconstop);
+				startstopButton.setBounds(x_pos(Metronome.WIDTH, ResourceManager.iconstart.getIconWidth()), 350, ResourceManager.iconstop.getIconWidth(), ResourceManager.iconstop.getIconHeight());
 				//動作開始時の動作
 			}else {
 				timer.stop();
-				startstopButton.setIcon(iconssbstart);
-				startstopButton.setBounds(x_pos(Metronome.WIDTH, iconssbstart.getIconWidth()), 350, iconssbstart.getIconWidth(), iconssbstart.getIconHeight());
+				startstopButton.setIcon(ResourceManager.iconstart);
+				startstopButton.setBounds(x_pos(Metronome.WIDTH, ResourceManager.iconstart.getIconWidth()), 350, ResourceManager.iconstart.getIconWidth(), ResourceManager.iconstart.getIconHeight());
 				//動作終了時の動作
 			}
 		}

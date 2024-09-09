@@ -21,6 +21,7 @@ public class FilePanel extends JPanel{
 	
 	static int[] BeatList;
 	static float[] TempoList;
+	static int[] SoundList;
 	
 	FilePanel(){
 		this.setLayout(null);
@@ -89,8 +90,19 @@ public class FilePanel extends JPanel{
 								TempoList[i] = Float.parseFloat(numberStrings[i].trim());
 							}
 						}
+						line = br.readLine();
+						linenum++;
+						//音用の配列を格納
+						if(linenum == 3) {
+							String[] soundStrings = line.split(",");
+							SoundList = new int[soundStrings.length];
+							//文字列を数値に変換
+							for(int k=0; k < SoundList.length; k++) {
+								SoundList[k] = Integer.parseInt(soundStrings[k].trim());
+							}
+						}
 					}
-					Metronome.playPanel.prepareComponents();
+					Metronome.playPanel.SetForPlay();
 					Main.metronome.setFrontScreenAndFocus(ScreenMode.PLAY);
 				}catch(IOException | NumberFormatException ioe) {
 					ioe.printStackTrace();
