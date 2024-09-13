@@ -123,7 +123,7 @@ public class MetronomePanel extends JPanel {
 		decrease5TempoButton.addActionListener(new Decrease5TempoButtonListener());
 		changeButton.addActionListener(new ChangeButtonListener());
 		
-		timer = new Timer(t(Tempo), new ActionListener() {
+		timer = new Timer((int)t(Tempo), new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					playClickSounds(ResourceManager.NormalSoundFile);
 				}
@@ -134,7 +134,7 @@ public class MetronomePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			isRunning = !isRunning;
 			if(isRunning) {
-				timer.setDelay(t(Tempo));
+				timer.setDelay((int)t(Tempo));
 				timer.start();
 				startstopButton.setIcon(ResourceManager.iconstop);
 				startstopButton.setBounds(x_pos(Metronome.WIDTH, ResourceManager.iconstart.getIconWidth()), 350, ResourceManager.iconstop.getIconWidth(), ResourceManager.iconstop.getIconHeight());
@@ -154,7 +154,7 @@ public class MetronomePanel extends JPanel {
 				Tempo++;
 				tempoSlider.setValue(Tempo);
 				tempolabel.setText("Tempo:" + Tempo);
-				timer.setDelay(t(Tempo));
+				timer.setDelay((int)t(Tempo));
 				//メトロノームテンポ変更
 			}
 		}
@@ -166,7 +166,7 @@ public class MetronomePanel extends JPanel {
 				Tempo--;
 				tempoSlider.setValue(Tempo);
 				tempolabel.setText("Tempo:" + Tempo);
-				timer.setDelay(t(Tempo));
+				timer.setDelay((int)t(Tempo));
 				//メトロノームテンポ変更
 			}
 		}
@@ -176,7 +176,7 @@ public class MetronomePanel extends JPanel {
 		public void stateChanged(ChangeEvent e) {
 			Tempo = tempoSlider.getValue();
 			tempolabel.setText("Tempo:" + Tempo);
-			timer.setDelay(t(Tempo));
+			timer.setDelay((int)t(Tempo));
 		}
 	}
 	
@@ -189,7 +189,7 @@ public class MetronomePanel extends JPanel {
 			}
 			tempoSlider.setValue(Tempo);
 			tempolabel.setText("Tempo:" + Tempo);
-			timer.setDelay(t(Tempo));
+			timer.setDelay((int)t(Tempo));
 		}
 	}
 	private class Decrease5TempoButtonListener implements ActionListener{
@@ -201,7 +201,7 @@ public class MetronomePanel extends JPanel {
 			}
 			tempoSlider.setValue(Tempo);
 			tempolabel.setText("Tempo:" + Tempo);
-			timer.setDelay(t(Tempo));
+			timer.setDelay((int)t(Tempo));
 		}
 	}
 	private void playClickSounds(File s) {
@@ -218,8 +218,8 @@ public class MetronomePanel extends JPanel {
 	private static int x_pos(int windowwidth, int componentswidth) {
 		return ((windowwidth - componentswidth) / 2) ;
 	}
-	private static int t(int tempo) {
-		return 60000 / tempo;
+	private static float t(int tempo) {
+		return (60000 / tempo) * (240/221);
 	}
 	
 	private class ChangeButtonListener implements ActionListener{
